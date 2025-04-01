@@ -34,65 +34,8 @@
 
   <footer>JHONATHAN DEV - 2025</footer>
 
-  <script>
-    let jogoSelecionado = "";
-    let taxasDeCambio = {
-        "Fortnite": 0.025,   // 1 V-Buck = R$ 0,025
-        "Minecraft": 0.05,   // 1 Minecoin = R$ 0,05
-        "Roblox": 0.035      // 1 Robux = R$ 0,035
-    };
-
-    function mostrarOpcoes() {
-        document.getElementById("tela-inicial").style.display = "none";
-        document.getElementById("tela-escolha").style.display = "flex";
-    }
-
-    function escolherJogo(jogo) {
-        jogoSelecionado = jogo;
-        document.getElementById("tela-escolha").style.display = "none";
-        document.getElementById("tela-conversao").style.display = "flex";
-        
-        // Limpar valores anteriores e setar o valor inicial como 0
-        document.getElementById("quantidade").value = "0";  
-        document.getElementById("resultado").innerText = "";
-
-        // Adicionando o nome da moeda selecionada ao texto
-        let nomeMoeda = jogoSelecionado === "Fortnite" ? "V-Bucks" :
-                        jogoSelecionado === "Minecraft" ? "Minecoins" :
-                        jogoSelecionado === "Roblox" ? "Robux" : "";
-
-        document.getElementById("moeda-selecionada").innerText = "Converta " + nomeMoeda + " para Real";
-    }
-
-    function converterMoeda() {
-        let quantidade = document.getElementById("quantidade").value;
-        if (quantidade === "" || quantidade <= 0) {
-            alert("Digite uma quantidade válida.");
-            return;
-        }
-
-        let valorConvertido = quantidade * taxasDeCambio[jogoSelecionado];
-        document.getElementById("resultado").innerText = "Valor em Real: R$ " + valorConvertido.toFixed(2);
-        
-        // Limpar o campo de entrada após conversão
-        document.getElementById("quantidade").value = "";
-    }
-
-    function limparResultado() {
-        // Limpar o resultado e o campo de entrada caso o usuário queira digitar outro valor
-        document.getElementById("resultado").innerText = "";
-    }
-
-    function voltarEscolha() {
-        document.getElementById("tela-conversao").style.display = "none";
-        document.getElementById("tela-escolha").style.display = "flex";
-    }
-
-    function voltarInicio() {
-        document.getElementById("tela-escolha").style.display = "none";
-        document.getElementById("tela-inicial").style.display = "flex";
-    }
-  </script>
+  <!-- Referência ao arquivo externo de script -->
+  <script src="script.js"></script>
 
   <style>
     .container {
