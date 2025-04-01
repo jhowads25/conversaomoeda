@@ -1,0 +1,146 @@
+<body>
+  <img src="https://i.postimg.cc/GpCxYmvc/title.png" alt="Logo" class="logo">
+
+  <div class="container" id="tela-inicial">
+    <div class="content">
+      <h2>QUAL SEU JOGO PREFERIDO?</h2>
+      <p>Vamos Converter as Moedas para REAL?</p>
+      <button class="btn-main" onclick="mostrarOpcoes()">Começar!</button>
+    </div>
+  </div>
+
+  <div class="container" id="tela-escolha" style="display: none;">
+    <div class="content">
+      <h2>Escolha seu jogo preferido</h2>
+      <div class="buttons">
+        <button class="btn-option" onclick="escolherJogo('Fortnite')">FORTNITE</button>
+        <button class="btn-option" onclick="escolherJogo('Minecraft')">MINECRAFT</button>
+        <button class="btn-option" onclick="escolherJogo('Roblox')">ROBLOX</button>
+      </div>
+      <button class="btn-back" onclick="voltarInicio()">Voltar</button>
+    </div>
+  </div>
+
+  <div class="container" id="tela-conversao" style="display: none;">
+    <div class="content">
+      <h2>Conversor de Moeda</h2>
+      <p id="moeda-selecionada"></p>
+      <input type="number" id="quantidade" placeholder="Digite a quantidade" onchange="limparResultado()">
+      <button class="btn-main" onclick="converterMoeda()">Converter</button>
+      <p id="resultado"></p>
+      <button class="btn-back" onclick="voltarEscolha()">Escolher outro jogo</button>
+    </div>
+  </div>
+
+  <footer>JHONATHAN DEV - 2025</footer>
+
+  <script>
+    let jogoSelecionado = "";
+    let taxasDeCambio = {
+        "Fortnite": 0.025,   // 1 V-Buck = R$ 0,025
+        "Minecraft": 0.05,   // 1 Minecoin = R$ 0,05
+        "Roblox": 0.035      // 1 Robux = R$ 0,035
+    };
+
+    function mostrarOpcoes() {
+        document.getElementById("tela-inicial").style.display = "none";
+        document.getElementById("tela-escolha").style.display = "flex";
+    }
+
+    function escolherJogo(jogo) {
+        jogoSelecionado = jogo;
+        document.getElementById("tela-escolha").style.display = "none";
+        document.getElementById("tela-conversao").style.display = "flex";
+        
+        // Limpar valores anteriores e setar o valor inicial como 0
+        document.getElementById("quantidade").value = "0";  
+        document.getElementById("resultado").innerText = "";
+
+        // Adicionando o nome da moeda selecionada ao texto
+        let nomeMoeda = jogoSelecionado === "Fortnite" ? "V-Bucks" :
+                        jogoSelecionado === "Minecraft" ? "Minecoins" :
+                        jogoSelecionado === "Roblox" ? "Robux" : "";
+
+        document.getElementById("moeda-selecionada").innerText = "Converta " + nomeMoeda + " para Real";
+    }
+
+    function converterMoeda() {
+        let quantidade = document.getElementById("quantidade").value;
+        if (quantidade === "" || quantidade <= 0) {
+            alert("Digite uma quantidade válida.");
+            return;
+        }
+
+        let valorConvertido = quantidade * taxasDeCambio[jogoSelecionado];
+        document.getElementById("resultado").innerText = "Valor em Real: R$ " + valorConvertido.toFixed(2);
+        
+        // Limpar o campo de entrada após conversão
+        document.getElementById("quantidade").value = "";
+    }
+
+    function limparResultado() {
+        // Limpar o resultado e o campo de entrada caso o usuário queira digitar outro valor
+        document.getElementById("resultado").innerText = "";
+    }
+
+    function voltarEscolha() {
+        document.getElementById("tela-conversao").style.display = "none";
+        document.getElementById("tela-escolha").style.display = "flex";
+    }
+
+    function voltarInicio() {
+        document.getElementById("tela-escolha").style.display = "none";
+        document.getElementById("tela-inicial").style.display = "flex";
+    }
+  </script>
+
+  <style>
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    button {
+      width: 200px;
+      height: 50px;
+      font-size: 18px;
+      cursor: pointer;
+      border-radius: 5px;
+      border: none;
+      margin: 10px;
+    }
+    .btn-main {
+      background-color: #e91e63;
+      color: white;
+    }
+    .btn-option {
+      background-color: #e91e63;
+      color: white;
+    }
+    .btn-back {
+      background-color: #333;
+      color: white;
+    }
+
+    #quantidade {
+      width: 250px;
+      height: 40px;
+      font-size: 1.2em;
+      margin-top: 10px;
+      padding: 5px;
+    }
+    
+    #resultado {
+      margin-top: 15px;
+      font-size: 1.2em;
+      color: white; /* Mudado para cor branca */
+    }
+  </style>
+</body>
